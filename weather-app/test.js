@@ -26,25 +26,19 @@ describe('Environment Variable Tests', () => {
         process.env.WEATHER_API_KEY = 'test-api-key'; // Mocking the API key
     });
 
-    // Correcting the path to app.js
     it('should run without error if WEATHER_API_KEY is set', () => {
         assert.doesNotThrow(() => {
-            require('./app'); // Change was made here
+            require('./app'); // Should not throw
         });
-    });
-
-    after(() => {
-        delete process.env.WEATHER_API_KEY; // Clean up after tests
     });
 
     it('should fail if WEATHER_API_KEY is not set', () => {
         delete process.env.WEATHER_API_KEY; // Remove the env variable
         assert.throws(() => {
-            require('./app'); // This should still work
+            require('./app'); // This should throw due to no API key
         }, {
-            name: 'Error',
-            message: 'CRITICAL ERROR: No API Key found!'
+            name: 'Error', // The name of the error to match
+            message: 'CRITICAL ERROR: No API Key found!' // The expected message
         });
     });
 });
-
