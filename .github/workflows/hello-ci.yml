@@ -2,8 +2,8 @@ name: Greeting Workflow
 on: [push]
 
 jobs:
-say-hello:
-runs-on: ubuntu-latest
-steps:
-- name: Run a greeting
-run: echo &quot;The CI pipeline has successfully started!&quot;
+  say-hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run a greeting
+        run: echo &quot;The CI pipeline has successfully started!&quot;
