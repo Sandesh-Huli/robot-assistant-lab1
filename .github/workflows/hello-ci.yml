@@ -1,10 +1,22 @@
-name: CI Workflow
-on: [push]
+name: CI
+
+on: 
+  push:
+    branches:
+      - main
 
 jobs:
-  test:
+  tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'  # Use the latest version of Python
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest  # Install pytest if needed
       - name: Run Python Tests
         run: pytest test_calc.py
