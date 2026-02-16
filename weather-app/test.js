@@ -22,10 +22,24 @@ describe('Addition Tests', () => {
 
 // Sample test for app security (mocking process.env)
 describe('Environment Variable Tests', () => {
+    before(() => {
+        process.env.WEATHER_API_KEY = 'test-api-key'; // Mocking the API key
+    });
+
+    it('should run without error if WEATHER_API_KEY is set', () => {
+        assert.doesNotThrow(() => {
+            require('./weather-app/app'); // This should not throw
+        });
+    });
+
+    after(() => {
+        delete process.env.WEATHER_API_KEY; // Clean up after tests
+    });
+
     it('should fail if WEATHER_API_KEY is not set', () => {
         delete process.env.WEATHER_API_KEY; // Remove the env variable
         assert.throws(() => {
-            require('./app'); // This should throw because of no API key
+            require('./weather-app/app'); // This should throw due to no API key
         }, {
             name: 'Error',
             message: 'CRITICAL ERROR: No API Key found!'
